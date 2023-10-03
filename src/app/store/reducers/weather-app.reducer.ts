@@ -1,15 +1,15 @@
-import { createReducer, on, select } from '@ngrx/store';
-import { searchCity, selectCity } from '../actions/city.actions';
-import { state } from '@angular/animations';
+import { createReducer, on } from '@ngrx/store';
+
+import { searchCity } from '../actions/weather-app.actions';
 
 export interface cityState {
   query: string;
-  selected: string | null;
+  selected: string | undefined;
 }
 
 export const initialState: cityState = {
   query: '',
-  selected: null,
+  selected: undefined,
 };
 
 export const cityReducer = createReducer(

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { searchCity } from 'src/app/core/actions/city.actions';
+import { searchCity } from 'src/app/store/actions/weather-app.actions';
 
 @Component({
   selector: 'app-city-input',
