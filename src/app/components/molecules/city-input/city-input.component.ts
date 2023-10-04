@@ -8,11 +8,10 @@ import { searchCity } from 'src/app/store/actions/weather-app.actions';
   styleUrls: ['./city-input.component.css'],
 })
 export class CityInputComponent {
-  cityQuery: string;
-  queryWait: boolean;
+  locationInput: string;
 
   constructor(private store: Store) {}
   onSearch() {
-    this.store.dispatch(searchCity({ query: this.cityQuery }));
+    this.store.dispatch(searchCity({ query: this.locationInput }));
   }
 }
