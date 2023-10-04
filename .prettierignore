@@ -1,0 +1,7 @@
+*.png
+*.jpg
+*journey-tagging.json
+*.hbs
+**/node_modules
+vars*-*yml
+.angular

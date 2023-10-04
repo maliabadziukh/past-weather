@@ -8,7 +8,7 @@ describe('CityInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CityInputComponent]
+      declarations: [CityInputComponent],
     });
     fixture = TestBed.createComponent(CityInputComponent);
     component = fixture.componentInstance;
