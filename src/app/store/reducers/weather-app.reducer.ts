@@ -1,18 +1,23 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer } from '@ngrx/store';
+import { createFormGroupState, FormGroupState, onNgrxForms } from 'ngrx-forms';
 
-import { searchCity } from '../actions/weather-app.actions';
-
-export interface cityState {
-  query: string;
-  selected: string | undefined;
+export interface InputFormValue {
+  cityInput: string;
+  countryCodeInput: string;
 }
 
-export const initialState: cityState = {
-  query: '',
-  selected: undefined,
-};
+const FORM_ID = 'location input form';
 
-export const cityReducer = createReducer(
-  initialState,
-  on(searchCity, (state, { query }) => ({ ...state, query: query }))
-);
+const initialFormState = createFormGroupState<InputFormValue>(FORM_ID, {
+  cityInput: '',
+  countryCodeInput: '',
+});
+
+export interface appState {
+  inputForm: FormGroupState<InputFormValue>;
+}
+
+export const initialState: appState = {
+  inputForm: initialFormState,
+};
+export const weatherAppReducer = createReducer(initialState, onNgrxForms());

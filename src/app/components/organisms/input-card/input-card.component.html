@@ -1,2 +1,10 @@
-<app-city-input></app-city-input>
-<app-date-input></app-date-input>
+<ng-container *ngIf="viewModel$ | async as vm">
+  {{ vm }}
+  <form class="flex flex-col">
+    <fieldset *ngIf="vm.form.controls.cityInput">
+      <app-city-input [ngrxFormControlState]="control"></app-city-input>
+    </fieldset>
+    <!-- <app-country-code-input></app-country-code-input> -->
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-1 rounded">Get Weather</button>
+  </form>
+</ng-container>
