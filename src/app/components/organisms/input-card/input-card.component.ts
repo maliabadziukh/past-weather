@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FormGroupState } from 'ngrx-forms';
-import { Observable } from 'rxjs';
-import { appState, InputFormValue } from 'src/app/store/reducers/weather-app.reducer';
-import { selectFormViewModel } from 'src/app/store/selectors/weather-app.selector';
+import { getLocation } from '@store';
+import { GeocodingService } from 'src/app/services/geocoding.service';
+import { appState } from 'src/app/store/reducers/weather-app.reducer';
 
 @Component({
   selector: 'app-input-card',
@@ -11,14 +11,21 @@ import { selectFormViewModel } from 'src/app/store/selectors/weather-app.selecto
   styleUrls: ['./input-card.component.css'],
 })
 export class InputCardComponent implements OnInit {
-  formState$: Observable<FormGroupState<InputFormValue>>;
-  viewModel$: Observable<FormGroupState<InputFormValue>>;
+  inputForm: FormGroup;
 
-  constructor(private store: Store<appState>) {
-    this.formState$ = this.store.select(s => s.inputForm);
-  }
+  constructor(
+    private store: Store<appState>,
+    private gcservice: GeocodingService
+  ) {}
 
   ngOnInit(): void {
-    this.viewModel$ = this.store.select(selectFormViewModel);
+    this.inputForm = new FormGroup({});
+    this.gcservice.getLocation('Kyiv', 'UA').subscribe(response => console.log(response));
+  }
+
+  onSubmit() {
+    this.store.dispatch(
+      getLocation({ city: this.inputForm.value.city, countryCode: this.inputForm.value.countryCode })
+    );
   }
 }

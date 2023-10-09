@@ -1,15 +1,7 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FormGroupState } from 'ngrx-forms';
+import { createSelector } from '@ngrx/store';
 
-import { CityInputFormView } from '../models/city-input-form-view.model';
-import { InputFormValue } from '../reducers/weather-app.reducer';
+import { appState } from '../reducers/weather-app.reducer';
 
-export const selectFeature = createFeatureSelector<FormGroupState<InputFormValue>>;
+export const selectAppFeature = (state: appState) => state;
 
-export const selectForm = createSelector(selectFeature, state => state);
-export const selectFormViewModel = createSelector(
-  selectForm,
-  (form): CityInputFormView => ({
-    form,
-  })
-);
+export const getCityInput = createSelector(selectAppFeature, state => state.cityInput);

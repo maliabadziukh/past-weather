@@ -1,12 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { FormGroupState } from 'ngrx-forms';
-import { InputFormValue } from 'src/app/store/reducers/weather-app.reducer';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-country-code-input',
   templateUrl: './country-code-input.component.html',
   styleUrls: ['./country-code-input.component.css'],
 })
-export class CountryCodeInputComponent {
-  @Input() formState: FormGroupState<InputFormValue>;
+export class CountryCodeInputComponent implements OnInit {
+  countryCode: AbstractControl;
+  @Input() parentForm: FormGroup;
+
+  ngOnInit(): void {
+    this.countryCode = new FormControl('');
+    this.parentForm.addControl('countryCode', this.countryCode);
+  }
 }

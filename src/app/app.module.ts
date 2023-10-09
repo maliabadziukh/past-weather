@@ -7,7 +7,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { InputCardComponent, WeatherDisplayComponent } from '@organisms';
-import { NgrxFormsModule } from 'ngrx-forms';
 
 import { AppComponent } from './app.component';
 import { weatherAppReducer } from './store/reducers/weather-app.reducer';
@@ -22,13 +21,12 @@ import { weatherAppReducer } from './store/reducers/weather-app.reducer';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ inputForm: weatherAppReducer }),
+    StoreModule.forRoot({ appState: weatherAppReducer }),
     FormsModule,
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([]),
     HttpClientModule,
     ReactiveFormsModule,
-    NgrxFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
