@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { LocationData, StoreData, StoreDataStatus } from '@store';
 
-import { getLocation, getLocationFailure, getLocationSuccess } from '../actions/weather-app.actions';
+import { getLocation, getLocationError, getLocationNotFound, getLocationSuccess } from '../actions/weather-app.actions';
 
 export const weatherAppFeatureKey = 'weather-app';
 
@@ -29,8 +29,12 @@ export const weatherAppReducer = createReducer(
     ...state,
     locationData: { status: StoreDataStatus.SUCCESS, data: payLoad },
   })),
-  on(getLocationFailure, state => ({
+  on(getLocationError, (state, error) => ({
     ...state,
-    locationData: { status: StoreDataStatus.ERROR },
+    locationData: { status: StoreDataStatus.ERROR, error: error.error },
+  })),
+  on(getLocationNotFound, (state, error) => ({
+    ...state,
+    locationData: { status: StoreDataStatus.ERROR, error: error.error },
   }))
 );

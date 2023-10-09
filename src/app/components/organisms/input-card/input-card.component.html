@@ -15,7 +15,9 @@
     {{ locationData | json }}
   </div>
 
-  <div *ngIf="locationDataStatus === StoreDataStatus.ERROR">
+  <div *ngIf="locationDataStatus === StoreDataStatus.ERROR && locationData$ | async as locationData">
     ERROR
+
+    {{ locationData | json }}}
   </div>
 </ng-container>

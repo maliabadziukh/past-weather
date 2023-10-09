@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import { getCityInput } from '../store/selectors/weather-app.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -10,17 +7,9 @@ import { getCityInput } from '../store/selectors/weather-app.selector';
 export class GeocodingService {
   private apiUrl = 'https://api.openweathermap.org/geo/1.0/direct';
   private apiKey = 'bd2eb3c6d299713ff453256ad2f45cf8';
-  cityInput: string;
   countryCodeInput: string;
 
-  constructor(
-    private http: HttpClient,
-    private store: Store
-  ) {
-    this.store.select(getCityInput).subscribe(cityInput => {
-      this.cityInput = cityInput;
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   public getLocation(city: string, countryCode: string) {
     const params = {

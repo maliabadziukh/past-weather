@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getLocation, getLocationData, getLocationDataStatus, StoreDataStatus } from '@store';
+import { getLocation, selectLocationData, selectLocationDataStatus, StoreDataStatus } from '@store';
 import { GeocodingService } from 'src/app/services/geocoding.service';
 import { WeatherAppState } from 'src/app/store/reducers/weather-app.reducer';
 
@@ -11,8 +11,8 @@ import { WeatherAppState } from 'src/app/store/reducers/weather-app.reducer';
   styleUrls: ['./input-card.component.css'],
 })
 export class InputCardComponent implements OnInit {
-  locationDataStatus$ = this.store.select(getLocationDataStatus);
-  locationData$ = this.store.select(getLocationData);
+  locationDataStatus$ = this.store.select(selectLocationDataStatus);
+  locationData$ = this.store.select(selectLocationData);
 
   inputForm: FormGroup;
   StoreDataStatus = StoreDataStatus;
