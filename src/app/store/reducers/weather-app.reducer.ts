@@ -1,20 +1,36 @@
 import { createReducer, on } from '@ngrx/store';
+import { LocationData, StoreData, StoreDataStatus } from '@store';
 
-import { getLocation, getLocationSuccess } from '../actions/weather-app.actions';
+import { getLocation, getLocationFailure, getLocationSuccess } from '../actions/weather-app.actions';
 
-export interface appState {
+export const weatherAppFeatureKey = 'weather-app';
+
+export interface WeatherAppState {
   cityInput: string;
   countryCodeInput: string;
-  locationData: any;
+  locationData: StoreData<LocationData, unknown>;
 }
 
-export const initialState: appState = {
+export const initialState: WeatherAppState = {
   cityInput: '',
   countryCodeInput: '',
-  locationData: {},
+  locationData: { status: StoreDataStatus.INIT },
 };
+
 export const weatherAppReducer = createReducer(
   initialState,
-  on(getLocation, (state, { city, countryCode }) => ({ ...state, cityInput: city, countryCodeInput: countryCode })),
-  on(getLocationSuccess, (state, { locationData }) => ({ ...state, locationData: locationData }))
+  on(getLocation, (state, { city, countryCode }) => ({
+    ...state,
+    cityInput: city,
+    countryCodeInput: countryCode,
+    locationData: { status: StoreDataStatus.PENDING },
+  })),
+  on(getLocationSuccess, (state, payLoad) => ({
+    ...state,
+    locationData: { status: StoreDataStatus.SUCCESS, data: payLoad },
+  })),
+  on(getLocationFailure, state => ({
+    ...state,
+    locationData: { status: StoreDataStatus.ERROR },
+  }))
 );

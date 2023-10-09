@@ -1,7 +1,9 @@
-import { createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { appState } from '../reducers/weather-app.reducer';
+import { weatherAppFeatureKey, WeatherAppState } from '../reducers/weather-app.reducer';
 
-export const selectAppFeature = (state: appState) => state;
+const selectWeatherAppFutureState = createFeatureSelector<WeatherAppState>(weatherAppFeatureKey);
 
-export const getCityInput = createSelector(selectAppFeature, state => state.cityInput);
+export const getCityInput = createSelector(selectWeatherAppFutureState, state => state.cityInput);
+export const getLocationData = createSelector(selectWeatherAppFutureState, state => state.locationData);
+export const getLocationDataStatus = createSelector(getLocationData, state => state.status);

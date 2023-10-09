@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getLocation } from '@store';
+import { getLocation, getLocationData, getLocationDataStatus, StoreDataStatus } from '@store';
 import { GeocodingService } from 'src/app/services/geocoding.service';
-import { appState } from 'src/app/store/reducers/weather-app.reducer';
+import { WeatherAppState } from 'src/app/store/reducers/weather-app.reducer';
 
 @Component({
   selector: 'app-input-card',
@@ -11,10 +11,14 @@ import { appState } from 'src/app/store/reducers/weather-app.reducer';
   styleUrls: ['./input-card.component.css'],
 })
 export class InputCardComponent implements OnInit {
+  locationDataStatus$ = this.store.select(getLocationDataStatus);
+  locationData$ = this.store.select(getLocationData);
+
   inputForm: FormGroup;
+  StoreDataStatus = StoreDataStatus;
 
   constructor(
-    private store: Store<appState>,
+    private store: Store<WeatherAppState>,
     private gcservice: GeocodingService
   ) {}
 
