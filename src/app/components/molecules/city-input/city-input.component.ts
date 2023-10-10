@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { searchCity } from 'src/app/store/actions/weather-app.actions';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-city-input',
   templateUrl: './city-input.component.html',
   styleUrls: ['./city-input.component.css'],
 })
-export class CityInputComponent {
-  locationInput: string;
+export class CityInputComponent implements OnInit {
+  city: AbstractControl;
+  @Input() parentForm: FormGroup;
 
-  constructor(private store: Store) {}
-  onSearch() {
-    this.store.dispatch(searchCity({ query: this.locationInput }));
+  ngOnInit(): void {
+    this.city = new FormControl('');
+    this.parentForm.addControl('city', this.city);
   }
 }

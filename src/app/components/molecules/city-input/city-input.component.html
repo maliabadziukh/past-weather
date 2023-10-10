@@ -1,6 +1,4 @@
-<input
-  type="text"
-  [(ngModel)]="cityQuery"
-  (input)="onSearch()"
-  class="border-[1px] border-solid border-black rounded-md"
-/>
+<div [formGroup]="parentForm">
+  <label for="cityInput">City</label>
+  <input formControlName="city" id="cityInput" type="text" class="border-[1px] border-solid border-black rounded-md" />
+</div>
