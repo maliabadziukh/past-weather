@@ -6,7 +6,7 @@ import { CityInputComponent, CountryCodeInputComponent, DateInputComponent } fro
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { InputCardComponent, WeatherDisplayComponent } from '@organisms';
+import { LocationInputCardComponent, WeatherDisplayComponent } from '@organisms';
 
 import { AppComponent } from './app.component';
 import { LocationEffects } from './store/effects/get-location.effect';
@@ -15,7 +15,7 @@ import { weatherAppFeatureKey, weatherAppReducer } from './store/reducers/weathe
 @NgModule({
   declarations: [
     AppComponent,
-    InputCardComponent,
+    LocationInputCardComponent,
     WeatherDisplayComponent,
     CityInputComponent,
     DateInputComponent,
