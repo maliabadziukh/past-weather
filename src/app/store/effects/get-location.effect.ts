@@ -2,10 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { LocationData, selectLocationUserInput } from '@store';
-import { catchError, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, merge, of, switchMap, withLatestFrom } from 'rxjs';
 import { GeocodingService } from 'src/app/services/geocoding.service';
 
-import { getLocation, getLocationError, getLocationNotFound, getLocationSuccess } from '../actions/weather-app.actions';
+import {
+  fetchWeather,
+  getLocation,
+  getLocationError,
+  getLocationNotFound,
+  getLocationSuccess,
+} from '../actions/weather-app.actions';
 
 @Injectable()
 export class LocationEffects {
@@ -25,7 +31,7 @@ export class LocationEffects {
             if (response.length === 0) {
               return of(getLocationNotFound({ error: 'location not found' }));
             }
-            return of(getLocationSuccess(response[0]));
+            return merge(of(getLocationSuccess(response[0])), of(fetchWeather()));
           }),
           catchError(response => of(getLocationError({ error: response })))
         )

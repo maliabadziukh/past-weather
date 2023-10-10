@@ -25,7 +25,6 @@ export class LocationInputCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.inputForm = new FormGroup({});
-    this.geocodingservice.getLocation('Kyiv', 'UA').subscribe(response => console.log(response));
   }
 
   onSubmit() {
