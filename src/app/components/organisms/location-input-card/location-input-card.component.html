@@ -1,26 +1,19 @@
-<ng-container *ngIf="locationDataStatus$ | async as locationDataStatus">
-  <form
-    class="flex flex-col"
-    [formGroup]="inputForm"
-    (ngSubmit)="onSubmit()"
-    *ngIf="locationDataStatus === StoreDataStatus.INIT"
-  >
-    {{ locationDataStatus }}
-
+<ng-container *ngIf="locationDataStatus$ | async as locationDataStatus" [ngSwitch]="locationDataStatus">
+  <form class="flex flex-col" [formGroup]="inputForm" (ngSubmit)="onSubmit()" *ngSwitchDefault>
     <app-city-input [parentForm]="inputForm"></app-city-input>
     <app-country-code-input [parentForm]="inputForm"></app-country-code-input>
     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-1 rounded">Get Weather</button>
   </form>
 
-  <div *ngIf="locationDataStatus === StoreDataStatus.PENDING">Waiting for data...</div>
+  <div *ngSwitchCase="StoreDataStatus.PENDING">Waiting for data...</div>
 
-  <div *ngIf="locationDataStatus === StoreDataStatus.SUCCESS && locationData$ | async as locationData">
-    {{ locationData | json }}
+  <div *ngSwitchCase="StoreDataStatus.SUCCESS">
+    Location data:
+    {{ locationData$ | async | json }}
   </div>
 
-  <div *ngIf="locationDataStatus === StoreDataStatus.ERROR && locationData$ | async as locationData">
-    ERROR
-
-    {{ locationData | json }}}
+  <div *ngSwitchCase="StoreDataStatus.ERROR">
+    ERROR:
+    {{ locationData$ | async | json }}
   </div>
 </ng-container>
