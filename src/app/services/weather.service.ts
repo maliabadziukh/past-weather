@@ -10,7 +10,7 @@ export class WeatherService {
 
   private constructor(private http: HttpClient) {}
 
-  getWeather(lon: string, lat: string) {
+  getWeather(lon: number, lat: number) {
     const params = {
       lat: lat,
       lon: lon,

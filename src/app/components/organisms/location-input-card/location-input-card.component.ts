@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { WeatherService } from '@services';
 import { getLocation, selectLocationData, selectLocationDataStatus, StoreDataStatus } from '@store';
 
-import { GeocodingService } from '../../../services/geocoding.service';
 import { WeatherAppState } from '../../../store/reducers/weather-app.reducer';
 
 @Component({
@@ -20,7 +20,7 @@ export class LocationInputCardComponent implements OnInit {
 
   constructor(
     private store: Store<WeatherAppState>,
-    private geocodingservice: GeocodingService
+    private weatherService: WeatherService
   ) {}
 
   ngOnInit(): void {
