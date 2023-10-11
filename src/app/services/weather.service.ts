@@ -8,7 +8,7 @@ export class WeatherService {
   private apiUrl = 'https://api.openweathermap.org/data/3.0/onecall';
   private apiKey = '843f3582f9614b3cd3f532fafaca1131';
 
-  private constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   getWeather(lon: number, lat: number) {
     const params = {
