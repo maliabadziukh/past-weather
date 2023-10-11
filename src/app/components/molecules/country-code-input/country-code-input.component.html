@@ -4,6 +4,10 @@
     formControlName="countryCode"
     id="countryCode"
     type="text"
+    list="countryOptions"
     class="border-[1px] border-solid border-black rounded-md"
   />
+  <datalist id="countryOptions">
+    <option *ngFor="let country of countryOptions" [value]="country.code">{{ country.name }}</option>
+  </datalist>
 </div>
