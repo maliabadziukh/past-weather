@@ -2,11 +2,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CityInputComponent, CountryCodeInputComponent, DateInputComponent } from '@molecules';
+import { CityInputComponent, CountryCodeInputComponent, DateTimeInputComponent } from '@molecules';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { LocationInputCardComponent, WeatherDisplayComponent } from '@organisms';
+import { BirthdayWeatherQueryComponent, WeatherDisplayComponent } from '@organisms';
 
 import { AppComponent } from './app.component';
 import { WeatherAppEffects } from './store/effects/weather-app-effects';
@@ -15,10 +15,10 @@ import { weatherAppFeatureKey, weatherAppReducer } from './store/reducers/weathe
 @NgModule({
   declarations: [
     AppComponent,
-    LocationInputCardComponent,
+    BirthdayWeatherQueryComponent,
     WeatherDisplayComponent,
     CityInputComponent,
-    DateInputComponent,
+    DateTimeInputComponent,
     CountryCodeInputComponent,
   ],
   imports: [

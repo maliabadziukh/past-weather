@@ -19,3 +19,4 @@ export const selectLocationUserInput = createSelector(
 );
 export const selectLongitude = createSelector(selectLocationData, state => state.data?.lon);
 export const selectLatitude = createSelector(selectLocationData, state => state.data?.lat);
+export const selectDateTime = createSelector(selectWeatherAppFutureState, state => state.dateTimeInput);

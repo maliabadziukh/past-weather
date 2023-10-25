@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class WeatherService {
   private apiUrl = 'https://api.openweathermap.org/data/3.0/onecall';
-  private apiKey = '843f3582f9614b3cd3f532fafaca1131';
+  private apiKey = 'bd2eb3c6d299713ff453256ad2f45cf8';
 
   private constructor(private http: HttpClient) {}
 
@@ -14,8 +14,8 @@ export class WeatherService {
     const params = {
       lat: lat,
       lon: lon,
-      apid: this.apiKey,
-      exclude: 'minutely, hourly, daily, alerts',
+      appid: this.apiKey,
+      units: 'metric',
     };
     return this.http.get(this.apiUrl, { params });
   }

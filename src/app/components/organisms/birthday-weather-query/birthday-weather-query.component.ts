@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getLocation, selectLocationData, selectLocationDataStatus, StoreDataStatus } from '@store';
+import { selectLocationData, selectLocationDataStatus, StoreDataStatus, submitQuery } from '@store';
 
 import { WeatherAppState } from '../../../store/reducers/weather-app.reducer';
 
 @Component({
-  selector: 'app-location-input-card',
-  templateUrl: './location-input-card.component.html',
-  styleUrls: ['./location-input-card.component.css'],
+  selector: 'app-birthday-weather-query',
+  templateUrl: './birthday-weather-query.component.html',
+  styleUrls: ['./birthday-weather-query.component.css'],
 })
-export class LocationInputCardComponent implements OnInit {
+export class BirthdayWeatherQueryComponent implements OnInit {
   locationDataStatus$ = this.store.select(selectLocationDataStatus);
   locationData$ = this.store.select(selectLocationData);
 
@@ -25,7 +25,11 @@ export class LocationInputCardComponent implements OnInit {
 
   onSubmit() {
     this.store.dispatch(
-      getLocation({ city: this.inputForm.value.city, countryCode: this.inputForm.value.countryCode })
+      submitQuery({
+        city: this.inputForm.value.city,
+        countryCode: this.inputForm.value.countryCode,
+        dateTime: this.inputForm.value.dateTime,
+      })
     );
   }
 }

@@ -14,6 +14,7 @@ import {
   getLocationError,
   getLocationNotFound,
   getLocationSuccess,
+  submitQuery,
 } from '../actions/weather-app.actions';
 import { WeatherData } from '../models/weather-data.model';
 
@@ -25,6 +26,15 @@ export class WeatherAppEffects {
     private weatherService: WeatherService,
     private store: Store
   ) {}
+
+  submitQuery$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(submitQuery),
+      switchMap(() => {
+        return of(getLocation());
+      })
+    )
+  );
 
   getLocation$ = createEffect(() =>
     this.actions$.pipe(
