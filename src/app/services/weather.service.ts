@@ -5,15 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class WeatherService {
-  private apiUrl = 'https://api.openweathermap.org/data/3.0/onecall';
+  private apiUrl = 'https://api.openweathermap.org/data/3.0/onecall/timemachine';
   private apiKey = 'bd2eb3c6d299713ff453256ad2f45cf8';
 
   private constructor(private http: HttpClient) {}
 
-  getWeather(lon: number, lat: number) {
+  getWeather(lon: number, lat: number, unixTime: number) {
     const params = {
       lat: lat,
       lon: lon,
+      dt: unixTime,
       appid: this.apiKey,
       units: 'metric',
     };

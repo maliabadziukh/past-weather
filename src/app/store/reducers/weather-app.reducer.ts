@@ -8,6 +8,7 @@ import {
   getLocationError,
   getLocationNotFound,
   getLocationSuccess,
+  setUnixTimestamp,
   submitQuery,
 } from '../actions/weather-app.actions';
 import { WeatherData } from '../models/weather-data.model';
@@ -18,6 +19,7 @@ export interface WeatherAppState {
   cityInput: string;
   countryCodeInput: string;
   dateTimeInput: string;
+  unixTimestamp: number;
   locationData: StoreData<LocationData, unknown>;
   weatherData: StoreData<WeatherData, unknown>;
 }
@@ -26,6 +28,7 @@ export const initialState: WeatherAppState = {
   cityInput: '',
   countryCodeInput: '',
   dateTimeInput: '',
+  unixTimestamp: undefined,
   locationData: { status: StoreDataStatus.INIT },
   weatherData: { status: StoreDataStatus.INIT },
 };
@@ -53,6 +56,10 @@ export const weatherAppReducer = createReducer(
   on(getLocationNotFound, (state, error) => ({
     ...state,
     locationData: { status: StoreDataStatus.ERROR, error: error.error },
+  })),
+  on(setUnixTimestamp, (state, { unixTimestamp }) => ({
+    ...state,
+    unixTimestamp: unixTimestamp,
   })),
   on(fetchWeatherSuccess, (state, payLoad) => ({
     ...state,
