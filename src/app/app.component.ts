@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { StoreDataStatus } from './store/models';
 import { WeatherAppState } from './store/reducers/weather-app.reducer';
-import { selectLocationDataStatus } from './store/selectors';
+import { selectCityTitle, selectLocationDataStatus } from './store/selectors';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ import { selectLocationDataStatus } from './store/selectors';
 export class AppComponent {
   title = 'past-weather';
   locationDataStatus$ = this.store.select(selectLocationDataStatus);
+  birthCity$ = this.store.select(selectCityTitle);
 
   StoreDataStatus = StoreDataStatus;
 

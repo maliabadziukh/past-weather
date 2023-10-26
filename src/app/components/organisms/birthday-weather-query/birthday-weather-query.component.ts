@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectLocationData, selectLocationDataStatus, StoreDataStatus, submitQuery } from '@store';
+import { StoreDataStatus, submitQuery } from '@store';
 
 import { WeatherAppState } from '../../../store/reducers/weather-app.reducer';
 
@@ -11,9 +11,6 @@ import { WeatherAppState } from '../../../store/reducers/weather-app.reducer';
   styleUrls: ['./birthday-weather-query.component.css'],
 })
 export class BirthdayWeatherQueryComponent implements OnInit {
-  locationDataStatus$ = this.store.select(selectLocationDataStatus);
-  locationData$ = this.store.select(selectLocationData);
-
   inputForm: FormGroup;
   StoreDataStatus = StoreDataStatus;
 
