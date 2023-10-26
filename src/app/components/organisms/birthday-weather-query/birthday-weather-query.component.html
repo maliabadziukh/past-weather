@@ -1,28 +1,8 @@
-<ng-container *ngIf="locationDataStatus$ | async as locationDataStatus" [ngSwitch]="locationDataStatus">
-  <div class="mx-8 my-16 max-w-sm sm:mx-16">
-    <header class="mb-6">
-      <h1 class="text-xl font-bold">Weather App</h1>
-      <h3 class="text-slate-600">Input location info to receive the current weather conditions.</h3>
-    </header>
-    <form class="flex flex-col gap-y-6" [formGroup]="inputForm" (ngSubmit)="onSubmit()" *ngSwitchDefault>
-      <app-city-input [parentForm]="inputForm"></app-city-input>
-      <app-country-code-input [parentForm]="inputForm"></app-country-code-input>
-      <app-date-time-input [parentForm]="inputForm"></app-date-time-input>
-      <button type="submit" class="rounded bg-blue-500 px-1 py-1 font-semibold text-white hover:bg-blue-700">
-        Get Weather
-      </button>
-    </form>
-
-    <div *ngSwitchCase="StoreDataStatus.PENDING">Waiting for data...</div>
-
-    <div *ngSwitchCase="StoreDataStatus.SUCCESS">
-      Location data:
-      {{ locationData$ | async | json }}
-    </div>
-
-    <div *ngSwitchCase="StoreDataStatus.ERROR">
-      ERROR:
-      {{ locationData$ | async | json }}
-    </div>
-  </div>
-</ng-container>
+<form class="flex flex-col gap-y-6" [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+  <app-city-input [parentForm]="inputForm"></app-city-input>
+  <app-country-code-input [parentForm]="inputForm"></app-country-code-input>
+  <app-date-time-input [parentForm]="inputForm"></app-date-time-input>
+  <button type="submit" class="rounded bg-blue-500 px-1 py-1 font-semibold text-white hover:bg-blue-700">
+    Get Weather
+  </button>
+</form>

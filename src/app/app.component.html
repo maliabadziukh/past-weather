@@ -1,1 +1,16 @@
-<app-birthday-weather-query></app-birthday-weather-query>
+<ng-container *ngIf="locationDataStatus$ | async as locationDataStatus">
+  <div class="mx-8 my-16 max-w-sm sm:mx-16">
+    <header class="mb-6">
+      <h1 class="text-xl font-bold">Weather App</h1>
+      <h3 class="text-slate-600" *ngIf="locationDataStatus === StoreDataStatus.INIT">
+        Input location info to receive the current weather conditions.
+      </h3>
+    </header>
+    <app-birthday-weather-query
+      *ngIf="locationDataStatus === StoreDataStatus.INIT; else weatherDisplay"
+    ></app-birthday-weather-query>
+    <ng-template #weatherDisplay>
+      <app-weather-display></app-weather-display>
+    </ng-template>
+  </div>
+</ng-container>
