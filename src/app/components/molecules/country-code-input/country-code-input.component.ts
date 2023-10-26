@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountriesService } from 'src/app/services/countries.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class CountryCodeInputComponent implements OnInit {
   constructor(private countriesService: CountriesService) {}
 
   ngOnInit(): void {
-    this.countryCode = new FormControl('');
+    this.countryCode = new FormControl('', [Validators.required]);
     this.parentForm.addControl('countryCode', this.countryCode);
     this.countryOptions = this.countriesService.getCountries();
   }

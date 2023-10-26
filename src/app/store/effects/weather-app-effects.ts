@@ -11,9 +11,9 @@ import {
   selectUnixTimestamp,
 } from '@store';
 import { catchError, merge, of, switchMap, withLatestFrom } from 'rxjs';
-import { DateConversionService } from 'src/app/services/date-conversion.service';
 import { GeocodingService } from 'src/app/services/geocoding.service';
 
+import { DateTimeService } from '../../services/date-time.service';
 import {
   convertDateToUnix,
   fetchWeather,
@@ -34,7 +34,7 @@ export class WeatherAppEffects {
     private actions$: Actions,
     private geocodingService: GeocodingService,
     private weatherService: WeatherService,
-    private dateConversionService: DateConversionService,
+    private dateConversionService: DateTimeService,
     private store: Store
   ) {}
 

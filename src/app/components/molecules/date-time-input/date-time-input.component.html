@@ -4,6 +4,10 @@
     formControlName="dateTime"
     id="dateTimeInput"
     type="datetime-local"
-    class="rounded-md border-[1px] border-solid border-black"
+    class="rounded-md border-[2px] border-solid border-black px-2"
+    [ngClass]="{ 'border-red-600': dateTime.invalid && dateTime.touched }"
+    [min]="minDateTime"
+    [max]="maxDateTime"
   />
+  <span *ngIf="!dateTime.valid && dateTime.touched" class="text-gray-500">Please select a date and time!</span>
 </div>

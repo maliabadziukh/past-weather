@@ -2,7 +2,12 @@
   <app-city-input [parentForm]="inputForm"></app-city-input>
   <app-country-code-input [parentForm]="inputForm"></app-country-code-input>
   <app-date-time-input [parentForm]="inputForm"></app-date-time-input>
-  <button type="submit" class="rounded bg-blue-500 px-1 py-1 font-semibold text-white hover:bg-blue-700">
+  <button
+    type="submit"
+    class="rounded px-1 py-1 font-semibold text-white"
+    [ngClass]="{ 'bg-slate-500': !inputForm.valid, 'bg-blue-500 hover:bg-blue-700': inputForm.valid }"
+    [disabled]="!inputForm.valid"
+  >
     Get Weather
   </button>
 </form>
