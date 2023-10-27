@@ -8,7 +8,7 @@ describe('CountryCodeInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CountryCodeInputComponent]
+      declarations: [CountryCodeInputComponent],
     });
     fixture = TestBed.createComponent(CountryCodeInputComponent);
     component = fixture.componentInstance;
