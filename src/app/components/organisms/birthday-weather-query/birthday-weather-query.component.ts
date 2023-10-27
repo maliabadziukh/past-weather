@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { StoreDataStatus, submitQuery } from '@store';
+import { FormFactory } from 'src/app/factories/form.factory';
 
 import { WeatherAppState } from '../../../store/reducers/weather-app.reducer';
 
@@ -14,10 +15,13 @@ export class BirthdayWeatherQueryComponent implements OnInit {
   inputForm: FormGroup;
   StoreDataStatus = StoreDataStatus;
 
-  constructor(private store: Store<WeatherAppState>) {}
+  constructor(
+    private store: Store<WeatherAppState>,
+    private formFactory: FormFactory
+  ) {}
 
   ngOnInit(): void {
-    this.inputForm = new FormGroup({});
+    this.inputForm = this.formFactory.createFormGroup();
   }
 
   onSubmit() {

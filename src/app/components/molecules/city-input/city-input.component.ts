@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { FormFactory } from 'src/app/factories/form.factory';
 
 @Component({
   selector: 'app-city-input',
@@ -9,9 +10,10 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 export class CityInputComponent implements OnInit {
   city: AbstractControl;
   @Input() parentForm: FormGroup;
+  constructor(private formFactory: FormFactory) {}
 
   ngOnInit(): void {
-    this.city = new FormControl('', [Validators.required]);
+    this.city = this.formFactory.createFormControl('', [Validators.required]);
     this.parentForm.addControl('city', this.city);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { FormFactory } from 'src/app/factories/form.factory';
 import { CountriesService } from 'src/app/services/countries.service';
 
 @Component({
@@ -12,10 +13,13 @@ export class CountryCodeInputComponent implements OnInit {
   @Input() parentForm: FormGroup;
   countryOptions: { name: string; code: string }[];
 
-  constructor(private countriesService: CountriesService) {}
+  constructor(
+    private countriesService: CountriesService,
+    private formFactory: FormFactory
+  ) {}
 
   ngOnInit(): void {
-    this.countryCode = new FormControl('', [Validators.required]);
+    this.countryCode = this.formFactory.createFormControl('', [Validators.required]);
     this.parentForm.addControl('countryCode', this.countryCode);
     this.countryOptions = this.countriesService.getCountries();
   }
