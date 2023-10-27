@@ -17,3 +17,5 @@ export const selectLocationUserInput = createSelector(
   selectCountryCodeInput,
   (cityInput, countryCodeInput) => [cityInput, countryCodeInput]
 );
+export const selectLongitude = createSelector(selectLocationData, state => state.data?.lon);
+export const selectLatitude = createSelector(selectLocationData, state => state.data?.lat);

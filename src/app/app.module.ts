@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LocationInputCardComponent, WeatherDisplayComponent } from '@organisms';
 
 import { AppComponent } from './app.component';
-import { LocationEffects } from './store/effects/get-location.effect';
+import { WeatherAppEffects } from './store/effects/weather-app-effects';
 import { weatherAppFeatureKey, weatherAppReducer } from './store/reducers/weather-app.reducer';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { weatherAppFeatureKey, weatherAppReducer } from './store/reducers/weathe
     StoreModule.forRoot({ [weatherAppFeatureKey]: weatherAppReducer }),
     FormsModule,
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([LocationEffects]),
+    EffectsModule.forRoot([WeatherAppEffects]),
     HttpClientModule,
     ReactiveFormsModule,
   ],
