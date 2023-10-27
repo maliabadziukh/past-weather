@@ -2,11 +2,20 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '@services';
-import { LocationData, selectLatitude, selectLocationUserInput, selectLongitude } from '@store';
+import {
+  LocationData,
+  selectDateTimeInput,
+  selectLatitude,
+  selectLocationUserInput,
+  selectLongitude,
+  selectUnixTimestamp,
+} from '@store';
 import { catchError, merge, of, switchMap, withLatestFrom } from 'rxjs';
 import { GeocodingService } from 'src/app/services/geocoding.service';
 
+import { DateTimeService } from '../../services/date-time.service';
 import {
+  convertDateToUnix,
   fetchWeather,
   fetchWeatherError,
   fetchWeatherSuccess,
@@ -14,6 +23,8 @@ import {
   getLocationError,
   getLocationNotFound,
   getLocationSuccess,
+  setUnixTimestamp,
+  submitQuery,
 } from '../actions/weather-app.actions';
 import { WeatherData } from '../models/weather-data.model';
 
@@ -23,8 +34,18 @@ export class WeatherAppEffects {
     private actions$: Actions,
     private geocodingService: GeocodingService,
     private weatherService: WeatherService,
+    private dateConversionService: DateTimeService,
     private store: Store
   ) {}
+
+  submitQuery$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(submitQuery),
+      switchMap(() => {
+        return merge(of(getLocation()), of(convertDateToUnix()));
+      })
+    )
+  );
 
   getLocation$ = createEffect(() =>
     this.actions$.pipe(
@@ -44,12 +65,27 @@ export class WeatherAppEffects {
     )
   );
 
+  getUnixTimestamp$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(convertDateToUnix),
+      withLatestFrom(this.store.select(selectDateTimeInput)),
+      switchMap(([, dateTimeInput]) => {
+        const unixTimestamp = this.dateConversionService.convertToUnixTime(dateTimeInput);
+        return of(setUnixTimestamp({ unixTimestamp: unixTimestamp }));
+      })
+    )
+  );
+
   fetchWeather$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchWeather),
-      withLatestFrom(this.store.select(selectLongitude), this.store.select(selectLatitude)),
-      switchMap(([, lon, lat]) =>
-        this.weatherService.getWeather(lon, lat).pipe(
+      withLatestFrom(
+        this.store.select(selectLongitude),
+        this.store.select(selectLatitude),
+        this.store.select(selectUnixTimestamp)
+      ),
+      switchMap(([, lon, lat, unixTimestamp]) =>
+        this.weatherService.getWeather(lon, lat, unixTimestamp).pipe(
           switchMap((response: WeatherData) => {
             return of(fetchWeatherSuccess(response));
           }),
