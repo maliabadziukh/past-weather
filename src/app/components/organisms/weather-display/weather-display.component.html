@@ -1,1 +1,18 @@
-<p>weather-display works!</p>
+<ng-container *ngIf="weatherData$ | async as weatherData">
+  <div class="grid grid-cols-2 gap-4 gap-y-2">
+    <div class="font-semibold">Temperature:</div>
+    <div>{{ weatherData.temp }}&deg;C</div>
+
+    <div class="font-semibold">Humidity:</div>
+    <div>{{ weatherData.humidity }}%</div>
+
+    <div class="font-semibold">Wind Speed:</div>
+    <div>{{ weatherData.wind_speed }}m/s</div>
+
+    <div class="font-semibold">Weather Condition:</div>
+    <img
+      src="https://openweathermap.org/img/wn/{{ weatherData.weather[0].icon }}.png"
+      alt="{{ weatherData.weather[0].main }} icon"
+    />
+  </div>
+</ng-container>

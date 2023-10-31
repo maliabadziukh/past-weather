@@ -1,6 +1,11 @@
-<input
-  type="text"
-  [(ngModel)]="cityQuery"
-  (input)="onSearch()"
-  class="border-[1px] border-solid border-black rounded-md"
-/>
+<div [formGroup]="parentForm" class="flex flex-col">
+  <label for="cityInput" class="font-semibold">City</label>
+  <input
+    formControlName="city"
+    id="cityInput"
+    type="text"
+    class="rounded-md border-[2px] border-solid border-black px-2"
+    [ngClass]="{ 'border-red-600': city.invalid && city.touched }"
+  />
+  <span *ngIf="!city.valid && city.touched" class="text-gray-500">Please enter a city name!</span>
+</div>

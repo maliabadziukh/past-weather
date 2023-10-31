@@ -1,18 +1,72 @@
 import { createReducer, on } from '@ngrx/store';
+import { LocationData, StoreData, StoreDataStatus } from '@store';
 
-import { searchCity } from '../actions/weather-app.actions';
+import {
+  fetchWeatherError,
+  fetchWeatherSuccess,
+  getLocation,
+  getLocationError,
+  getLocationNotFound,
+  getLocationSuccess,
+  setUnixTimestamp,
+  submitQuery,
+} from '../actions/weather-app.actions';
+import { WeatherData } from '../models/weather-data.model';
 
-export interface cityState {
-  query: string;
-  selected: string | undefined;
+export const weatherAppFeatureKey = 'weather-app';
+
+export interface WeatherAppState {
+  cityInput: string;
+  countryCodeInput: string;
+  dateTimeInput: string;
+  unixTimestamp: number;
+  locationData: StoreData<LocationData, unknown>;
+  weatherData: StoreData<WeatherData, unknown>;
 }
 
-export const initialState: cityState = {
-  query: '',
-  selected: undefined,
+export const initialState: WeatherAppState = {
+  cityInput: '',
+  countryCodeInput: '',
+  dateTimeInput: '',
+  unixTimestamp: undefined,
+  locationData: { status: StoreDataStatus.INIT },
+  weatherData: { status: StoreDataStatus.INIT },
 };
 
-export const cityReducer = createReducer(
+export const weatherAppReducer = createReducer(
   initialState,
-  on(searchCity, (state, { query }) => ({ ...state, query: query }))
+  on(submitQuery, (state, { city, countryCode, dateTime }) => ({
+    ...state,
+    cityInput: city,
+    countryCodeInput: countryCode,
+    dateTimeInput: dateTime,
+  })),
+  on(getLocation, state => ({
+    ...state,
+    locationData: { status: StoreDataStatus.PENDING },
+  })),
+  on(getLocationSuccess, (state, payLoad) => ({
+    ...state,
+    locationData: { status: StoreDataStatus.SUCCESS, data: payLoad },
+  })),
+  on(getLocationError, (state, error) => ({
+    ...state,
+    locationData: { status: StoreDataStatus.ERROR, error: error.error },
+  })),
+  on(getLocationNotFound, (state, error) => ({
+    ...state,
+    locationData: { status: StoreDataStatus.ERROR, error: error.error },
+  })),
+  on(setUnixTimestamp, (state, { unixTimestamp }) => ({
+    ...state,
+    unixTimestamp: unixTimestamp,
+  })),
+  on(fetchWeatherSuccess, (state, payLoad) => ({
+    ...state,
+    weatherData: { status: StoreDataStatus.SUCCESS, data: payLoad },
+  })),
+  on(fetchWeatherError, (state, error) => ({
+    ...state,
+    weatherData: { status: StoreDataStatus.ERROR, error: error.error },
+  }))
 );

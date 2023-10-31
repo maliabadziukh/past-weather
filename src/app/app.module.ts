@@ -1,22 +1,34 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CityInputComponent, DateInputComponent } from '@molecules';
+import { CityInputComponent, CountryCodeInputComponent, DateTimeInputComponent } from '@molecules';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { InputCardComponent, WeatherDisplayComponent } from '@organisms';
+import { BirthdayWeatherQueryComponent, WeatherDisplayComponent } from '@organisms';
 
 import { AppComponent } from './app.component';
-import { cityReducer } from './store/reducers/weather-app.reducer';
+import { WeatherAppEffects } from './store/effects/weather-app-effects';
+import { weatherAppFeatureKey, weatherAppReducer } from './store/reducers/weather-app.reducer';
+
 @NgModule({
-  declarations: [AppComponent, InputCardComponent, WeatherDisplayComponent, CityInputComponent, DateInputComponent],
+  declarations: [
+    AppComponent,
+    BirthdayWeatherQueryComponent,
+    WeatherDisplayComponent,
+    CityInputComponent,
+    DateTimeInputComponent,
+    CountryCodeInputComponent,
+  ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ city: cityReducer }),
+    StoreModule.forRoot({ [weatherAppFeatureKey]: weatherAppReducer }),
     FormsModule,
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([WeatherAppEffects]),
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
