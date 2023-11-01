@@ -17,7 +17,7 @@ const initialAppState = {
   weatherData: { status: StoreDataStatus.INIT },
 };
 
-fdescribe('WeatherAppEffects', () => {
+describe('WeatherAppEffects', () => {
   let effects: WeatherAppEffects;
   let actions$: Observable<Action>;
   let geocodingService: jasmine.SpyObj<GeocodingService>;
@@ -63,7 +63,7 @@ fdescribe('WeatherAppEffects', () => {
       mockStore.overrideSelector(selectLocationUserInput, ['Amsterdam', 'NL']);
 
       const actions: Action[] = [];
-      actions$ = of(getLocation({ city: 'Amsterdam', countryCode: 'NL' }));
+      actions$ = of(getLocation());
 
       effects.getLocation$.subscribe(action => actions.push(action));
       expect(actions).toEqual([getLocationSuccess(geocodingServiceMockResponse[0]), fetchWeather()]);
@@ -86,7 +86,7 @@ fdescribe('WeatherAppEffects', () => {
 
       mockStore.overrideSelector(selectLocationUserInput, ['Amsterdam', 'NL']);
 
-      actions$ = hot('-a-', { a: getLocation({ city: 'Amsterdam', countryCode: 'NL' }) });
+      actions$ = hot('-a-', { a: getLocation() });
       const response = cold('-a|', { a: geocodingServiceMockResponse });
       const expected = cold('--(bc)', { b: getLocationSuccess(geocodingServiceMockResponse[0]), c: fetchWeather() }); // '()' indicates multiple actions emitted at the same time
 
