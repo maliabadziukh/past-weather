@@ -1,13 +1,15 @@
 <div [formGroup]="parentForm" class="flex flex-col">
-  <label for="dateTimeInput" class="font-semibold">Birthday & Time</label>
+  <label for="dateTimeInput" class="font-karla">Birthday & Time</label>
   <input
     formControlName="dateTime"
     id="dateTimeInput"
     type="datetime-local"
-    class="rounded-md border-[2px] border-solid border-black px-2"
-    [ngClass]="{ 'border-red-600': dateTime.invalid && dateTime.touched }"
+    class="font-inconsolata rounded-md border border-solid px-2"
+    [ngClass]="{ 'border-red-600': dateTime.invalid && dateTime.touched, 'border-slate-600': !dateTime.touched }"
     [min]="minDateTime"
     [max]="maxDateTime"
   />
-  <span *ngIf="!dateTime.valid && dateTime.touched" class="text-gray-500">Please select a date and time!</span>
+  <span *ngIf="!dateTime.valid && dateTime.touched" class="font-inconsolata text-xs text-gray-500"
+    >Please select a date and time!</span
+  >
 </div>
