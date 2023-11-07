@@ -1,18 +1,40 @@
-<ng-container *ngIf="weatherData$ | async as weatherData">
+<ng-container *ngIf="weatherDataProps$ | async as weatherData; else statusEl">
   <div class="grid grid-cols-2 gap-4 gap-y-2">
-    <div class="font-semibold">Temperature:</div>
-    <div>{{ weatherData.temp }}&deg;C</div>
+    <div class="font-karla">Temperature:</div>
+    <div class="font-inconsolata">{{ weatherData.temp }}&deg;C</div>
 
-    <div class="font-semibold">Humidity:</div>
-    <div>{{ weatherData.humidity }}%</div>
+    <div class="font-karla">Humidity:</div>
+    <div class="font-inconsolata">{{ weatherData.humidity }}%</div>
 
-    <div class="font-semibold">Wind Speed:</div>
-    <div>{{ weatherData.wind_speed }}m/s</div>
+    <div class="font-karla">Wind Speed:</div>
+    <div class="font-inconsolata">{{ weatherData.wind_speed }}m/s</div>
 
-    <div class="font-semibold">Weather Condition:</div>
+    <div class="flex items-center font-karla">Weather Condition:</div>
     <img
       src="https://openweathermap.org/img/wn/{{ weatherData.weather[0].icon }}.png"
       alt="{{ weatherData.weather[0].main }} icon"
     />
   </div>
 </ng-container>
+
+<ng-template #statusEl>
+  <div *ngIf="(locationData$ | async)?.error as error">Location could not be fetched. Error: {{ error }}</div>
+  <div *ngIf="(weatherData$ | async)?.error as error" class="break-words">
+    Weather could not be fetched. Error: {{ error.message }}
+  </div>
+
+  <ng-container *ngIf="!(dataStatus$ | async)?.includes(StoreDataStatus.ERROR)"
+    ><svg
+      class="m-auto h-10 w-10 animate-spin text-indigo-700"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path></svg
+  ></ng-container>
+</ng-template>

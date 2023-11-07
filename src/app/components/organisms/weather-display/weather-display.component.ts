@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectWeatherDataProps, selectWeatherDataStatus, StoreDataStatus } from '@store';
+import {
+  selectLocationData,
+  selectLocationDataStatus,
+  selectWeatherData,
+  selectWeatherDataProps,
+  selectWeatherDataStatus,
+  StoreDataStatus,
+} from '@store';
+import { combineLatest } from 'rxjs';
 import { WeatherAppState } from 'src/app/store/reducers/weather-app.reducer';
 
 @Component({
@@ -10,8 +18,14 @@ import { WeatherAppState } from 'src/app/store/reducers/weather-app.reducer';
 })
 export class WeatherDisplayComponent {
   StoreDataStatus = StoreDataStatus;
-  weatherDataStatus$ = this.store.select(selectWeatherDataStatus);
-  weatherData$ = this.store.select(selectWeatherDataProps);
+
+  weatherDataProps$ = this.store.select(selectWeatherDataProps);
+  weatherData$ = this.store.select(selectWeatherData);
+  locationData$ = this.store.select(selectLocationData);
+  dataStatus$ = combineLatest([
+    this.store.select(selectLocationDataStatus),
+    this.store.select(selectWeatherDataStatus),
+  ]);
 
   constructor(private store: Store<WeatherAppState>) {}
 }

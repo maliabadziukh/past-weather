@@ -1,5 +1,5 @@
 <ng-container *ngIf="locationDataStatus$ | async as locationDataStatus">
-  <div class="box-border rounded-xl bg-white p-12">
+  <div class="box-border max-w-2xl rounded-xl bg-white p-12">
     <header class="mb-6">
       <h1 class="font-karla text-2xl">Your Birthday Weather</h1>
       <h3 class="font-inconsolata text-slate-600" *ngIf="locationDataStatus === StoreDataStatus.INIT">

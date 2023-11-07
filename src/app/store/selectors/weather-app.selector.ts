@@ -23,6 +23,6 @@ export const selectLatitude = createSelector(selectLocationData, state => state.
 export const selectDateTimeInput = createSelector(selectWeatherAppFutureState, state => state.dateTimeInput);
 export const selectUnixTimestamp = createSelector(selectWeatherAppFutureState, state => state.unixTimestamp);
 
-export const selectWeatherData = createSelector(selectWeatherAppFutureState, state => state.weatherData.data);
+export const selectWeatherData = createSelector(selectWeatherAppFutureState, state => state.weatherData);
 export const selectWeatherDataStatus = createSelector(selectWeatherAppFutureState, state => state.weatherData.status);
-export const selectWeatherDataProps = createSelector(selectWeatherData, state => state?.data[0]);
+export const selectWeatherDataProps = createSelector(selectWeatherData, state => state?.data?.data[0]);
