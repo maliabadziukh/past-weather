@@ -1,8 +1,8 @@
 <ng-container *ngIf="locationDataStatus$ | async as locationDataStatus">
-  <div class="mx-8 my-16 max-w-sm sm:mx-16">
+  <div class="box-border max-w-2xl rounded-xl bg-white p-12">
     <header class="mb-6">
-      <h1 class="text-xl font-bold">Your Birthday Weather</h1>
-      <h3 class="text-slate-600" *ngIf="locationDataStatus === StoreDataStatus.INIT">
+      <h1 class="font-karla text-2xl">Your Birthday Weather</h1>
+      <h3 class="font-inconsolata text-slate-600" *ngIf="locationDataStatus === StoreDataStatus.INIT">
         Input location and date info to receive the weather conditions.
       </h3>
     </header>

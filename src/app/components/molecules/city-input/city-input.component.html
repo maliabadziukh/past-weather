@@ -1,11 +1,13 @@
 <div [formGroup]="parentForm" class="flex flex-col">
-  <label for="cityInput" class="font-semibold">City</label>
+  <label for="cityInput" class="font-karla">City</label>
   <input
     formControlName="city"
     id="cityInput"
     type="text"
-    class="rounded-md border-[2px] border-solid border-black px-2"
-    [ngClass]="{ 'border-red-600': city.invalid && city.touched }"
+    class="font-inconsolata rounded-md border border-solid px-2"
+    [ngClass]="{ 'border-rose-700': city.invalid && city.touched, 'border-slate-600': !city.touched }"
   />
-  <span *ngIf="!city.valid && city.touched" class="text-gray-500">Please enter a city name!</span>
+  <span *ngIf="!city.valid && city.touched" class="font-inconsolata text-xs text-gray-500"
+    >Please enter a city name!</span
+  >
 </div>
