@@ -10,7 +10,12 @@ describe('DateTimeService', () => {
     service = TestBed.inject(DateTimeService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should convert a date string to unix time correctly', () => {
+    const testString = '2023-11-02T14:27';
+    const expectedUnix = 1698931620;
+
+    const resultUnix = service.convertToUnixTime(testString);
+
+    expect(resultUnix).toBe(expectedUnix);
   });
 });
